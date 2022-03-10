@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">OCBCHomework</string>
 
+    <!-- General strings -->
     <string name="label_login">Login</string>
     <string name="label_register">Register</string>
+    <string name="action_logout">Logout</string>
+    <string name="label_error_required">%1$s is required</string>
+    <string name="label_error_password_not_match">Confirm password not match</string>
+
+    <!-- Strings in Home/Dashboard screen -->
+    <string name="label_balance">You have</string>
+    <string name="label_account_num">Account No.</string>
+    <string name="label_account_holder">Account Holder</string>
+    <string name="label_transaction_history">Your transaction history</string>
+    <string name="action_direct_to_transfer">Make Transfer</string>
 </resources>
