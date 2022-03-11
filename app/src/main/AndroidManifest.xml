@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OCBCHomework">
         <activity
-            android:name=".presentation.HomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".presentation.MainActivity"
             android:exported="true">
             <intent-filter>

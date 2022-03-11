@@ -5,6 +5,8 @@
     <string name="label_login">Login</string>
     <string name="label_register">Register</string>
     <string name="action_logout">Logout</string>
+    <string name="label_username">Username</string>
+    <string name="label_password">Password</string>
     <string name="label_error_required">%1$s is required</string>
     <string name="label_error_password_not_match">Confirm password not match</string>
 
@@ -14,4 +16,6 @@
     <string name="label_account_holder">Account Holder</string>
     <string name="label_transaction_history">Your transaction history</string>
     <string name="action_direct_to_transfer">Make Transfer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
