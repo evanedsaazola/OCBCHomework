@@ -5,4 +5,10 @@
         <item name="colorAccent">@color/black</item>
     </style>
 
+    <style name="CardViewStyle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/dimen_24dp</item>
+        <item name="cornerSizeBottomRight">@dimen/dimen_24dp</item>
+    </style>
+
 </resources>
