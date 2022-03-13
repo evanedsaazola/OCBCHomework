@@ -1,9 +1,9 @@
 package com.evanedsaazola.ocbchomework.data
 
 import com.evanedsaazola.ocbchomework.data.model.BalanceItem
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
-import retrofit2.Response
+import com.evanedsaazola.ocbchomework.data.model.LoginBodyPost
+import com.evanedsaazola.ocbchomework.data.model.LoginItem
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -11,9 +11,9 @@ import retrofit2.http.POST
 interface ApiServices {
 
     @POST("/login")
-    suspend fun postLogin(@Body requestBody: RequestBody): Response<ResponseBody>
+    fun postLogin(@Body requestBody: LoginBodyPost): Call<LoginItem>
 
     @GET("/balance")
-    suspend fun getBalance(): Response<BalanceItem>
+    fun getBalance(): Call<BalanceItem>
 
 }

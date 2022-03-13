@@ -5,16 +5,14 @@ import com.google.gson.annotations.SerializedName
 data class TransactionsItem(
     @SerializedName("data")
     val dataResponse: List<TransactionResponseItem>?
-) {
-
-}
+)
 
 data class TransactionResponseItem(
     @SerializedName("transactionId")
     val transactionId: String?,
 
     @SerializedName("amount")
-    val amount: Int?,
+    val amount: Int? = 0,
 
     @SerializedName("transactionDate")
     val transactionDate: String?,
@@ -29,10 +27,8 @@ data class TransactionResponseItem(
     val transactionSender: TransactionSenderItem?,
 
     @SerializedName("receipient")
-    val transactionReceipient: TransactionReceipient?
-) {
-
-}
+    val transactionReceipient: TransactionReceipientItem?
+)
 
 data class TransactionSenderItem(
     @SerializedName("accountNo")
@@ -40,16 +36,12 @@ data class TransactionSenderItem(
 
     @SerializedName("accountHolder")
     val senderAccountHolder: String?
-) {
+)
 
-}
-
-data class TransactionReceipient(
+data class TransactionReceipientItem(
     @SerializedName("accountNo")
     val receipientAccountNo: String?,
 
     @SerializedName("accountHolder")
     val receipientAccountHolder: String?
-) {
-
-}
+)
