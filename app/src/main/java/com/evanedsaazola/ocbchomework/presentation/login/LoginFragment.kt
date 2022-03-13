@@ -45,8 +45,8 @@ class LoginFragment : Fragment() {
         _binding = null
     }
 
-    private fun goToDashboard() {
-        val directions = LoginFragmentDirections.actionLoginFragmentToDashboardFragment()
+    private fun goToDashboard(accountHolder: String?) {
+        val directions = LoginFragmentDirections.actionLoginFragmentToDashboardFragment(accountHolder)
         menuNavController?.navigate(directions)
     }
 
@@ -69,7 +69,7 @@ class LoginFragment : Fragment() {
 
                     if (loginResponse?.status.equals("success") && loginResponse != null) {
                         loginResponse.accountToken?.let { sessionManager.saveJwtToken(it) }
-                        goToDashboard()
+                        goToDashboard(loginResponse.username)
                     }
                 }
 

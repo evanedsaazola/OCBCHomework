@@ -16,6 +16,4 @@
     <string name="label_account_holder">Account Holder</string>
     <string name="label_transaction_history">Your transaction history</string>
     <string name="action_direct_to_transfer">Make Transfer</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

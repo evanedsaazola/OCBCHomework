@@ -8,5 +8,5 @@ data class BalanceItem(
     @SerializedName("accountNo")
     val accountNo: String?,
     @SerializedName("balance")
-    val balance: Int?
+    val balance: Double?
 )

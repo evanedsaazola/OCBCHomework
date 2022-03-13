@@ -6,15 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evanedsaazola.ocbchomework.NetworkClientInstance
+import com.evanedsaazola.ocbchomework.R
+import com.evanedsaazola.ocbchomework.SessionManager
+import com.evanedsaazola.ocbchomework.currencyFormatter
 import com.evanedsaazola.ocbchomework.data.model.BalanceItem
+import com.evanedsaazola.ocbchomework.data.model.TransactionResponseItem
 import com.evanedsaazola.ocbchomework.data.model.TransactionsItem
 import com.evanedsaazola.ocbchomework.databinding.FragmentDashboardBinding
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class DashboardFragment : Fragment() {
 
@@ -22,6 +30,9 @@ class DashboardFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var networkClientInstance: NetworkClientInstance
+    private lateinit var sessionManager: SessionManager
+    private val menuNavController: NavController? by lazy { activity?.findNavController(R.id.fragmentContainerView) }
+    private val args: DashboardFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,12 +43,22 @@ class DashboardFragment : Fragment() {
         getBalance()
         getTransactions()
 
+        binding.tvLogout.setOnClickListener {
+            logoutAccount()
+        }
+
         return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun logoutAccount() {
+        sessionManager = SessionManager(requireContext())
+        menuNavController?.navigateUp()
+        sessionManager.deleteJwtToken()
     }
 
     private fun getBalance() {
@@ -47,8 +68,11 @@ class DashboardFragment : Fragment() {
             override fun onResponse(call: Call<BalanceItem>, response: Response<BalanceItem>) {
                 val responseResult = response.body()
                 Log.d("testX", responseResult.toString())
-                tvBalance.text = responseResult?.balance.toString()
+                tvBalance.text = currencyFormatter(responseResult?.balance)
                 tvAccountNum.text = responseResult?.accountNo
+                args.apply {
+                    tvAccountHolder.text = accountHolder
+                }
             }
 
             override fun onFailure(call: Call<BalanceItem>, t: Throwable) {
@@ -74,7 +98,7 @@ class DashboardFragment : Fragment() {
                         binding.rvTransactionHistoru.layoutManager =
                             LinearLayoutManager(binding.rvTransactionHistoru.context)
                         binding.rvTransactionHistoru.adapter =
-                            TransactionListAdapter(responseResult)
+                            initializeData(responseResult)
                     }
                 }
 
@@ -83,5 +107,27 @@ class DashboardFragment : Fragment() {
                 }
 
             })
+    }
+
+    private fun initializeData(responseResult: List<TransactionResponseItem>?): TransactionListAdapter? {
+
+        var transactionListAdapter: TransactionListAdapter? = null
+
+        if (responseResult != null) {
+            responseResult.map {
+                val calendar = Calendar.getInstance(Locale.US)
+                calendar.time = it.transactionDate
+                calendar.set(Calendar.HOUR, 0)
+                calendar.set(Calendar.MINUTE, 0)
+                calendar.set(Calendar.SECOND, 0)
+                calendar.set(Calendar.MILLISECOND, 0)
+                calendar.set(Calendar.AM_PM, Calendar.AM)
+                it.transactionDate = calendar.time
+            }
+            val sortedResult =
+                responseResult.groupBy { it.transactionDate }.toSortedMap(reverseOrder())
+            transactionListAdapter = TransactionListAdapter(requireContext(), sortedResult)
+        }
+        return transactionListAdapter
     }
 }

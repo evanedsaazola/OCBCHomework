@@ -20,4 +20,8 @@ class SessionManager(context: Context) {
         return prefs.getString(Constants.USER_TOKEN, null)
     }
 
+    fun deleteJwtToken() {
+        prefs.edit().clear().apply()
+    }
+
 }

@@ -18,5 +18,10 @@
         android:id="@+id/dashboardFragment"
         android:name="com.evanedsaazola.ocbchomework.presentation.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <argument
+            android:name="accountHolder"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

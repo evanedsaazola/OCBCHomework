@@ -1,6 +1,7 @@
 package com.evanedsaazola.ocbchomework.data.model
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class TransactionsItem(
     @SerializedName("data")
@@ -15,7 +16,7 @@ data class TransactionResponseItem(
     val amount: Double? = 0.0,
 
     @SerializedName("transactionDate")
-    var transactionDate: String,
+    var transactionDate: Date,
 
     @SerializedName("description")
     val description: String?,
