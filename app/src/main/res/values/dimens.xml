@@ -21,4 +21,7 @@
     <dimen name="dimen_18sp">18sp</dimen>
     <dimen name="dimen_20sp">20sp</dimen>
     <dimen name="dimen_24sp">24sp</dimen>
+    <dimen name="dimen_32sp">32sp</dimen>
+    <dimen name="dimen_48sp">48sp</dimen>
+    <dimen name="dimen_64sp">64sp</dimen>
 </resources>

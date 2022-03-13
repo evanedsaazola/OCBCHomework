@@ -3,6 +3,7 @@
 
     <!-- General strings -->
     <string name="label_login">Login</string>
+    <string name="label_login_greetings">Manage your financial savings here</string>
     <string name="label_register">Register</string>
     <string name="action_logout">Logout</string>
     <string name="label_username">Username</string>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
     android:padding="@dimen/dimen_24dp"
     tools:context=".presentation.login.LoginFragment">
 
@@ -11,8 +12,10 @@
         android:id="@+id/tvLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/label_login"
-        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:fontFamily="@font/montserrat_extra_bold"
+        android:text="@string/label_login_greetings"
+        android:textColor="@color/white"
         android:textSize="@dimen/dimen_24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,18 +27,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_48dp"
-        app:boxBackgroundColor="@color/white"
-        app:boxStrokeColor="@color/black"
-        app:boxStrokeWidth="@dimen/dimen_2dp"
+        app:errorTextAppearance="@style/EditTextInputLayoutStyle.ErrorText"
+        app:errorTextColor="@color/white"
+        app:hintTextAppearance="@style/EditTextInputLayoutStyle.HintText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvLabel">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_semi_bold"
             android:hint="@string/label_username"
             android:inputType="text"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:textColor="@color/black2"
+            android:textCursorDrawable="@color/black2" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -44,33 +50,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_36dp"
-        app:boxBackgroundColor="@color/white"
-        app:boxStrokeColor="@color/black"
-        app:boxStrokeWidth="@dimen/dimen_2dp"
+        app:errorTextAppearance="@style/EditTextInputLayoutStyle.ErrorText"
+        app:errorTextColor="@color/white"
+        app:hintTextAppearance="@style/EditTextInputLayoutStyle.HintText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etLoginUsername">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_semi_bold"
             android:hint="@string/label_password"
             android:inputType="textPassword"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:textColor="@color/black2"
+            android:textCursorDrawable="@color/black2" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_8dp"
+        android:layout_marginBottom="@dimen/dimen_24dp"
+        android:background="@drawable/bg_rounded_button_red"
+        android:fontFamily="@font/montserrat_bold"
         android:text="@string/label_login"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/btnToRegister" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnToRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_16dp"
+        android:background="@drawable/bg_rounded_button_white"
+        android:fontFamily="@font/montserrat_bold"
         android:text="@string/label_register"
+        android:textColor="@color/red"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,9 +10,9 @@
         android:id="@+id/tvPayerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
         android:textColor="@color/black"
         android:textSize="@dimen/dimen_14sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Jackie" />
@@ -22,6 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_2dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="@color/black"
         android:textSize="@dimen/dimen_12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvPayerName"
@@ -31,12 +33,13 @@
         android:id="@+id/tvTransactionAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_extra_bold"
         android:textColor="@color/black"
         android:textSize="@dimen/dimen_16sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.466"
         tools:text="1,200.00" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

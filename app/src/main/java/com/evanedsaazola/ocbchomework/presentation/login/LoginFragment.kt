@@ -1,6 +1,8 @@
 package com.evanedsaazola.ocbchomework.presentation.login
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import com.evanedsaazola.ocbchomework.SessionManager
 import com.evanedsaazola.ocbchomework.data.model.LoginBodyPost
 import com.evanedsaazola.ocbchomework.data.model.LoginItem
 import com.evanedsaazola.ocbchomework.databinding.FragmentLoginBinding
+import com.evanedsaazola.ocbchomework.hideSoftKeyboard
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,14 +30,39 @@ class LoginFragment : Fragment() {
     private lateinit var sessionManager: SessionManager
     private lateinit var networkClientInstance: NetworkClientInstance
 
+    private var username = ""
+    private var password = ""
+
+    private var textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        override fun afterTextChanged(p0: Editable?) {
+            username = binding.etLoginUsername.editText?.text.toString()
+            password = binding.etLoginPassword.editText?.text.toString()
+
+            if (username.isNotEmpty()) {
+                binding.etLoginUsername.error = null
+            }
+            if (password.isNotEmpty()) {
+                binding.etLoginPassword.error = null
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
+        binding.etLoginUsername.editText?.addTextChangedListener(textWatcher)
+        binding.etLoginPassword.editText?.addTextChangedListener(textWatcher)
+
         binding.btnLogin.setOnClickListener {
-            submitLogin()
+            it.hideSoftKeyboard()
+            validateLogin()
         }
 
         return binding.root
@@ -46,13 +74,30 @@ class LoginFragment : Fragment() {
     }
 
     private fun goToDashboard(accountHolder: String?) {
-        val directions = LoginFragmentDirections.actionLoginFragmentToDashboardFragment(accountHolder)
+        val directions =
+            LoginFragmentDirections.actionLoginFragmentToDashboardFragment(accountHolder)
         menuNavController?.navigate(directions)
     }
 
+    private fun validateLogin() {
+        username = binding.etLoginUsername.editText?.text.toString()
+        password = binding.etLoginPassword.editText?.text.toString()
+
+        if (username.isBlank() && password.isBlank()) {
+            binding.etLoginUsername.error = getString(R.string.label_error_required, "username")
+            binding.etLoginPassword.error = getString(R.string.label_error_required, "password")
+        } else if (username.isBlank()) {
+            binding.etLoginUsername.error = getString(R.string.label_error_required, "username")
+        } else if (password.isBlank()) {
+            binding.etLoginPassword.error = getString(R.string.label_error_required, "password")
+        } else {
+            submitLogin()
+        }
+    }
+
     private fun submitLogin() {
-        val username = binding.etLoginUsername.editText?.text.toString()
-        val password = binding.etLoginPassword.editText?.text.toString()
+        username = binding.etLoginUsername.editText?.text.toString()
+        password = binding.etLoginPassword.editText?.text.toString()
 
         val loginBody = LoginBodyPost(
             username = username,
