@@ -12,10 +12,10 @@ data class TransactionResponseItem(
     val transactionId: String?,
 
     @SerializedName("amount")
-    val amount: Int? = 0,
+    val amount: Double? = 0.0,
 
     @SerializedName("transactionDate")
-    val transactionDate: String?,
+    var transactionDate: String,
 
     @SerializedName("description")
     val description: String?,

@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.evanedsaazola.ocbchomework.NetworkClientInstance
-import com.evanedsaazola.ocbchomework.SessionManager
 import com.evanedsaazola.ocbchomework.data.model.BalanceItem
+import com.evanedsaazola.ocbchomework.data.model.TransactionsItem
 import com.evanedsaazola.ocbchomework.databinding.FragmentDashboardBinding
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import retrofit2.Call
@@ -20,7 +21,6 @@ class DashboardFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var sessionManager: SessionManager
     private lateinit var networkClientInstance: NetworkClientInstance
 
     override fun onCreateView(
@@ -30,6 +30,7 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
         getBalance()
+        getTransactions()
 
         return binding.root
     }
@@ -41,7 +42,6 @@ class DashboardFragment : Fragment() {
 
     private fun getBalance() {
         networkClientInstance = NetworkClientInstance(requireContext())
-        sessionManager = SessionManager(requireContext())
 
         networkClientInstance.getApiServices().getBalance().enqueue(object : Callback<BalanceItem> {
             override fun onResponse(call: Call<BalanceItem>, response: Response<BalanceItem>) {
@@ -52,9 +52,36 @@ class DashboardFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<BalanceItem>, t: Throwable) {
-                Log.d("testX", "Failure: ${t.localizedMessage}")
+                Log.d("testX", "Failure (on Balance): ${t.localizedMessage}")
             }
 
         })
+    }
+
+    private fun getTransactions() {
+        networkClientInstance = NetworkClientInstance(requireContext())
+
+        networkClientInstance.getApiServices().getTransactions()
+            .enqueue(object : Callback<TransactionsItem> {
+                override fun onResponse(
+                    call: Call<TransactionsItem>,
+                    response: Response<TransactionsItem>
+                ) {
+                    val responseResult = response.body()?.dataResponse
+
+                    if (responseResult != null) {
+                        Log.d("testX", responseResult.toString())
+                        binding.rvTransactionHistoru.layoutManager =
+                            LinearLayoutManager(binding.rvTransactionHistoru.context)
+                        binding.rvTransactionHistoru.adapter =
+                            TransactionListAdapter(responseResult)
+                    }
+                }
+
+                override fun onFailure(call: Call<TransactionsItem>, t: Throwable) {
+                    Log.d("testX", "Failure (on Transactions): ${t.localizedMessage}")
+                }
+
+            })
     }
 }
