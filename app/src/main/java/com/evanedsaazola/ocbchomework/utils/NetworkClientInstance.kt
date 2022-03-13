@@ -1,4 +1,4 @@
-package com.evanedsaazola.ocbchomework
+package com.evanedsaazola.ocbchomework.utils
 
 import android.content.Context
 import com.evanedsaazola.ocbchomework.data.ApiServices

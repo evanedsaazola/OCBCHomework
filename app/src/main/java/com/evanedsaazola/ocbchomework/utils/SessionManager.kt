@@ -1,7 +1,8 @@
-package com.evanedsaazola.ocbchomework
+package com.evanedsaazola.ocbchomework.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.evanedsaazola.ocbchomework.R
 
 class SessionManager(context: Context) {
 

@@ -1,4 +1,4 @@
-package com.evanedsaazola.ocbchomework
+package com.evanedsaazola.ocbchomework.utils
 
 object Constants {
 

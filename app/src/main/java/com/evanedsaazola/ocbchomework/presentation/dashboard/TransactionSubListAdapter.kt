@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.evanedsaazola.ocbchomework.R
 import com.evanedsaazola.ocbchomework.data.model.TransactionResponseItem
 import com.evanedsaazola.ocbchomework.databinding.ItemSubTransactionHistoryBinding
-import com.evanedsaazola.ocbchomework.negativeCurrencyFormatter
-import com.evanedsaazola.ocbchomework.positiveCurrencyFormatter
+import com.evanedsaazola.ocbchomework.utils.negativeCurrencyFormatter
+import com.evanedsaazola.ocbchomework.utils.positiveCurrencyFormatter
 
 class TransactionSubListAdapter(
     context: Context,

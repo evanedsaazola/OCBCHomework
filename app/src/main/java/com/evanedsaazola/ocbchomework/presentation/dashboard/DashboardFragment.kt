@@ -5,15 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.evanedsaazola.ocbchomework.NetworkClientInstance
+import com.evanedsaazola.ocbchomework.utils.NetworkClientInstance
 import com.evanedsaazola.ocbchomework.R
-import com.evanedsaazola.ocbchomework.SessionManager
-import com.evanedsaazola.ocbchomework.currencyFormatter
+import com.evanedsaazola.ocbchomework.utils.SessionManager
+import com.evanedsaazola.ocbchomework.utils.currencyFormatter
 import com.evanedsaazola.ocbchomework.data.model.BalanceItem
 import com.evanedsaazola.ocbchomework.data.model.TransactionResponseItem
 import com.evanedsaazola.ocbchomework.data.model.TransactionsItem
@@ -59,6 +60,7 @@ class DashboardFragment : Fragment() {
         sessionManager = SessionManager(requireContext())
         menuNavController?.navigateUp()
         sessionManager.deleteJwtToken()
+        Toast.makeText(requireContext(), "You have logged out. Thank you for using our application", Toast.LENGTH_SHORT).show()
     }
 
     private fun getBalance() {
@@ -67,7 +69,6 @@ class DashboardFragment : Fragment() {
         networkClientInstance.getApiServices().getBalance().enqueue(object : Callback<BalanceItem> {
             override fun onResponse(call: Call<BalanceItem>, response: Response<BalanceItem>) {
                 val responseResult = response.body()
-                Log.d("testX", responseResult.toString())
                 tvBalance.text = currencyFormatter(responseResult?.balance)
                 tvAccountNum.text = responseResult?.accountNo
                 args.apply {
@@ -76,7 +77,8 @@ class DashboardFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<BalanceItem>, t: Throwable) {
-                Log.d("testX", "Failure (on Balance): ${t.localizedMessage}")
+                Log.d("errorApiCall", "Failure (on Balance): ${t.localizedMessage}")
+                Toast.makeText(requireContext(), "Unexpected error has happened. Please check your internet connection and try again.", Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -94,7 +96,6 @@ class DashboardFragment : Fragment() {
                     val responseResult = response.body()?.dataResponse
 
                     if (responseResult != null) {
-                        Log.d("testX", responseResult.toString())
                         binding.rvTransactionHistoru.layoutManager =
                             LinearLayoutManager(binding.rvTransactionHistoru.context)
                         binding.rvTransactionHistoru.adapter =
@@ -103,7 +104,8 @@ class DashboardFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<TransactionsItem>, t: Throwable) {
-                    Log.d("testX", "Failure (on Transactions): ${t.localizedMessage}")
+                    Log.d("errorApiCall", "Failure (on Transactions): ${t.localizedMessage}")
+                    Toast.makeText(requireContext(), "Unexpected error has happened. Please check your internet connection and try again.", Toast.LENGTH_SHORT).show()
                 }
 
             })

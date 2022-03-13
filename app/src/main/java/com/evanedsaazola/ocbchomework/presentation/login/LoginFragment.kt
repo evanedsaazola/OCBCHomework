@@ -7,16 +7,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.evanedsaazola.ocbchomework.NetworkClientInstance
+import com.evanedsaazola.ocbchomework.utils.NetworkClientInstance
 import com.evanedsaazola.ocbchomework.R
-import com.evanedsaazola.ocbchomework.SessionManager
+import com.evanedsaazola.ocbchomework.utils.SessionManager
 import com.evanedsaazola.ocbchomework.data.model.LoginBodyPost
 import com.evanedsaazola.ocbchomework.data.model.LoginItem
 import com.evanedsaazola.ocbchomework.databinding.FragmentLoginBinding
-import com.evanedsaazola.ocbchomework.hideSoftKeyboard
+import com.evanedsaazola.ocbchomework.utils.hideSoftKeyboard
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -119,7 +120,8 @@ class LoginFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<LoginItem>, t: Throwable) {
-                    Log.d("testX", "Failure: ${t.localizedMessage}")
+                    Log.d("errorApiCall", "Failure (on Login): ${t.localizedMessage}")
+                    Toast.makeText(requireContext(), "Failed to login. Please check your username and password", Toast.LENGTH_SHORT).show()
                 }
 
             })

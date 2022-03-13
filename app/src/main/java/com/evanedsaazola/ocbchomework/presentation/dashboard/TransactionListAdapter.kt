@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.evanedsaazola.ocbchomework.data.model.TransactionResponseItem
 import com.evanedsaazola.ocbchomework.databinding.ItemTransactionHistoryBinding
-import com.evanedsaazola.ocbchomework.getReadableDate
+import com.evanedsaazola.ocbchomework.utils.getReadableDate
 import java.util.*
 
 class TransactionListAdapter(
