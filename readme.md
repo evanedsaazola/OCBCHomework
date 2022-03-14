@@ -9,5 +9,5 @@ This project has the following features:
 
 libraries and tools used in this project:
 - Retrofit
--OkHttp
+- OkHttp
 </p>
